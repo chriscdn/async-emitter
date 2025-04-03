@@ -25,7 +25,7 @@ yarn add @chriscdn/async-emitter
 
 ## Usage
 
-Create an `emitter` instance:
+### Create an `emitter` instance:
 
 ```ts
 type MyEvents = {
@@ -33,11 +33,19 @@ type MyEvents = {
 };
 
 const emitter = new AsyncEmitter<MyEvents>();
+```
 
+### Listen to events
+
+```ts
 // add listner functions to respond to "helloAsync" events
 emitter.on("helloAsync", async (txt) => `hello ${txt}`);
 emitter.on("helloAsync", async (txt) => `good day ${txt}`);
+```
 
+### Emit an event
+
+```ts
 // fire an event and capture the results
 const results = await emitter.emit("helloAsync", "world");
 // ["hello world", "good day world"];
@@ -45,7 +53,7 @@ const results = await emitter.emit("helloAsync", "world");
 
 The order of the results is not guaranteed.
 
-Exceptions can be caught:
+### Exceptions
 
 ```ts
 emitter.on("helloAsync", async (txt) => {
@@ -57,6 +65,21 @@ try {
 } catch (e) {
   console.log(e.message); // boom
 }
+```
+
+### Remove a listener
+
+```ts
+const handler = async (txt) => `hello ${txt}`;
+
+emitter.on("helloAsync", handler);
+emitter.off("helloAsync", handler);
+```
+
+### Remove all listeners from an event
+
+```ts
+emitter.removeAllListeners("helloAsync");
 ```
 
 ## License

@@ -18,13 +18,13 @@ class AsyncEmitter<
     }
 
     // Emit an event and await all async listeners
-    async emit<K extends keyof Events>(
+    emit<K extends keyof Events>(
         event: K,
         ...args: Parameters<Events[K]>
     ): Promise<ReturnType<Events[K]>[]> {
         const handlers = this.listeners.get(event) ?? [];
 
-        return await Promise.all(
+        return Promise.all(
             [...handlers].map((handler) => handler(...args)),
         );
     }

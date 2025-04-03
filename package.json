@@ -1,0 +1,28 @@
+{
+  "name": "@chriscdn/async-emitter",
+  "version": "0.0.1",
+  "description": "An event emitter that plays friendly with asynchronous functions.",
+  "repository": "https://github.com/chriscdn/async-emitter",
+  "author": "Christopher Meyer <chris@schwiiz.org>",
+  "license": "MIT",
+  "type": "module",
+  "source": "./src/index.ts",
+  "exports": {
+    "types": "./lib/index.d.ts",
+    "require": "./lib/async-emitter.cjs",
+    "default": "./lib/async-emitter.modern.js"
+  },
+  "main": "./lib/async-emitter.cjs",
+  "module": "./lib/async-emitter.module.js",
+  "__unpkg": "./lib/async-emitter.umd.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "rm -rf ./lib/ && microbundle --format modern,esm,cjs",
+    "dev": "microbundle watch",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "microbundle": "^0.15.1",
+    "vitest": "^3.1.1"
+  }
+}

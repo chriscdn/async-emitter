@@ -45,23 +45,23 @@ emitter.on("helloAsync", async (txt) => `good day ${txt}`);
 
 ### Emit an event
 
+The `emit` method returns a `Promise` that resolves to an array containing the resolved values from all listeners. The order of these values is not guaranteed.
+
 ```ts
 // fire an event and capture the results
 const results = await emitter.emit("helloAsync", "world");
 // ["hello world", "good day world"];
 ```
 
-The order of the results is not guaranteed.
-
 ### Exceptions
 
 ```ts
-emitter.on("helloAsync", async (txt) => {
+emitter.on("throwError", async (txt) => {
   throw new Error("boom");
 });
 
 try {
-  const results = await emitter.emit("helloAsync", "world");
+  const results = await emitter.emit("throwError", "oops");
 } catch (e) {
   console.log(e.message); // boom
 }
@@ -80,6 +80,9 @@ emitter.off("helloAsync", handler);
 
 ```ts
 emitter.removeAllListeners("helloAsync");
+
+const results = await emitter.emit("helloAsync", "world");
+// []
 ```
 
 ## License
